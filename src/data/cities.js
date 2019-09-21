@@ -9,7 +9,7 @@ async function getCitiesForCountry({ countryId, searchTerm, offset, limit }) {
         .order("name");
 
     if (searchTerm) {
-        expression = expression.where(`UPPER(name) LIKE UPPER(?)`, `${searchTerm}}%`);
+        expression = expression.where(`UPPER(name) LIKE UPPER(?)`, `${searchTerm}%`);
     }
 
     if (offset) {
