@@ -1,0 +1,25 @@
+{
+  "name": "event-countdown-chrome-api",
+  "version": "1.0.0",
+  "description": "An API to compliment the event countdown chrome extension",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "start--dev": "nodemon src/index.js"
+  },
+  "author": "Alan Smith",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.0.0",
+    "lodash": "^4.17.15",
+    "mysql": "^2.17.1",
+    "require-dir": "^1.2.0",
+    "squel": "^5.13.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  }
+}
