@@ -1,5 +1,5 @@
 {
-  "name": "event-countdown-chrome-api",
+  "name": "chrome-event-countdown-api",
   "version": "1.0.0",
   "description": "An API to compliment the event countdown chrome extension",
   "main": "index.js",
