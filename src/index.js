@@ -1,7 +1,10 @@
 const express = require('express');
 const rateLimit = require("express-rate-limit");
+const cors = require('cors')
 
 const app = express();
+
+app.use(cors());
 
 const limiter = rateLimit({
     windowMs: 60 * 1000, // 1 minute
@@ -13,14 +16,6 @@ app.port = 3000;
 
  //  apply to all requests
  app.use(limiter);
-
-// Set Cors Headers
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    return next();
-});
 
 // Handle options requests
 app.use((req, res, next) => {

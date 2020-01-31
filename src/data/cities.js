@@ -3,7 +3,7 @@ const squel = require('squel');
 
 async function getCitiesForCountry({ countryId, searchTerm, offset, limit }) {
     let expression = squel.select()
-        .fields(['id', 'name'])
+        .fields(['id', 'name', 'timezoneName'])
         .from('cities')
         .where('countryId = ?', countryId)
         .order("name");
