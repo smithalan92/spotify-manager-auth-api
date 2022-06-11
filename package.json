@@ -10,17 +10,17 @@
   "author": "Alan Smith",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.0",
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "express-rate-limit": "^5.0.0",
-    "lodash": "^4.17.15",
-    "mysql": "^2.17.1",
-    "require-dir": "^1.2.0",
-    "squel": "^5.13.0"
+    "@hapi/hapi": "^20.2.2",
+    "awilix": "^7.0.3",
+    "axios": "^0.27.2",
+    "knex": "^2.1.0",
+    "mysql2": "^2.3.3"
   },
   "devDependencies": {
-    "nodemon": "^1.19.2"
+    "@types/cors": "^2.8.12",
+    "@types/hapi__hapi": "^20.0.12",
+    "@types/node": "^17.0.41",
+    "nodemon": "^2.0.16",
+    "ts-node": "^10.8.1"
   }
 }
