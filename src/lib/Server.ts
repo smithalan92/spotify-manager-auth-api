@@ -19,7 +19,10 @@ class Server {
 
     server.ext("onRequest", (request: Request, h: ResponseToolkit) => {
       if (request.method === "options") {
-        return h.response().code(200).takeover();
+        const response = h.response({});
+        response.header("Access-Control-Allow-Origin", "*");
+        response.header("Access-Control-Allow-Headers", "*");
+        return h.response(response).takeover();
       }
 
       return h.continue;
@@ -43,7 +46,7 @@ class Server {
 
     server.events.on("response", (req) => {
       // @ts-ignore - Cant get the correct type for req.response?
-      console.log(`${req.path} ${req.response.statusCode}`);
+      console.log(`${req.method.toUpperCase()} ${req.path} ${req.response.statusCode}`);
     });
 
     return server;
