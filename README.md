@@ -1,7 +1,3 @@
-# Chrome Event Countdown API
+# Spotify Manager Auth API
 
-A simple ( and very quickly hacked together ) API to get country, city and weather data for use by the chrome event countdown extension.
-
-City & Country Data based off the basic datasource by [SimpleMaps](https://simplemaps.com/data/world-cities) and [Geonames Cities 5000](https://download.geonames.org/export/dump/)
-
-Weather Data provided by [DarkSky](https://darksky.net/dev)
+A simple API to proxy the inital auth requests to Spotify for the Spotify playlist manager

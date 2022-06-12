@@ -16,7 +16,6 @@ import makeServer from "./server";
   const env: Env = container.resolve("env");
 
   try {
-    const { SERVER_PORT }: Env = container.resolve("env");
     const server = await makeServer(container);
 
     server.start();

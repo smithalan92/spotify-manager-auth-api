@@ -1,63 +1,37 @@
 import { Request, ResponseToolkit } from "@hapi/hapi";
-import DarkSkyApi from "../lib/DarkSkyApi";
-import { ContainerCradle } from "../lib/types";
-import AppRepository from "../repositories/AppRepository";
+import SpotifyApi from "../lib/SpotifyApi";
+import { ContainerCradle, Env } from "../lib/types";
+import { SPOTIFY_AUTH_SCOPES } from "../constants";
 
 class AppController {
-  repository: AppRepository;
-  darkSkyApi: DarkSkyApi;
+  spotifyApi: SpotifyApi;
+  env: Env;
 
-  constructor({ appRepository, darkSkyApi }: ContainerCradle) {
-    this.repository = appRepository;
-    this.darkSkyApi = darkSkyApi;
+  constructor({ spotifyApi, env }: ContainerCradle) {
+    this.spotifyApi = spotifyApi;
+    this.env = env;
   }
 
-  async getCountries(req: Request, h: ResponseToolkit) {
-    try {
-      const results = await this.repository.getCountries({
-        searchTerm: req.query.searchTerm,
-        offset: req.query.offset,
-        limit: req.query.limit,
-      });
+  async getLogin(req: Request, h: ResponseToolkit) {
+    const stateKey: string = req.params.stateKey;
 
-      return {
-        countries: results,
-      };
-    } catch (e) {
-      console.log(e);
-      return h.response().code(500);
-    }
+    const qs = new URLSearchParams();
+    qs.append("response_type", "code");
+    qs.append("client_id", this.env.SPOTIFY_CLIENT_ID);
+    qs.append("scope", SPOTIFY_AUTH_SCOPES.join(" "));
+    qs.append("redirect_uri", this.env.SPOTIFY_REDIRECT_URL);
+    qs.append("state", stateKey);
+
+    h.redirect(`https://accounts.spotify.com/authorize?${qs.toString()}`);
   }
 
-  async getCitiesForCountry(req: Request, h: ResponseToolkit) {
-    try {
-      const results = await this.repository.getCitiesForCountry({
-        countryId: req.params.countryId,
-        searchTerm: req.query.searchTerm,
-        offset: req.query.offset,
-        limit: req.query.limit,
-      });
+  async getToken(req: Request, h: ResponseToolkit) {
+    const { code } = <{ code: string }>req.payload;
 
-      return {
-        cities: results,
-      };
-    } catch (e) {
-      console.log(e);
-      return h.response().code(500);
-    }
-  }
-
-  async getWeatherForCity(req: Request, h: ResponseToolkit) {
-    const { lat, lng } = await this.repository.getCityCoordinates(req.params.cityId);
-    const { currently } = await this.darkSkyApi.getWeather({ lat, lng });
-    const rainChance = currently.precipProbability * 100 + "%";
-    const temperature = Number(currently.temperature).toFixed(0) + "°c";
+    const apiToken = await this.spotifyApi.getToken({ code });
 
     return {
-      summary: currently.summary,
-      icon: currently.icon,
-      temp: temperature,
-      chanceOfRain: rainChance,
+      token: apiToken,
     };
   }
 }

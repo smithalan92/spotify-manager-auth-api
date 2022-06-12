@@ -1,7 +1,7 @@
 {
-  "name": "chrome-event-countdown-api",
+  "name": "spotify-manager-auth-api",
   "version": "0.0.0",
-  "description": "An API to compliment the event countdown chrome extension",
+  "description": "An API handle to proxy spotify auth requests",
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
@@ -12,9 +12,7 @@
   "dependencies": {
     "@hapi/hapi": "^20.2.2",
     "awilix": "^7.0.3",
-    "axios": "^0.27.2",
-    "knex": "^2.1.0",
-    "mysql2": "^2.3.3"
+    "axios": "^0.27.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

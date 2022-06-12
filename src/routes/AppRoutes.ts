@@ -12,20 +12,14 @@ class AppRoutes implements Router {
   configure(server: Server) {
     server.route({
       method: "GET",
-      path: "/api/countries",
-      handler: this.controller.getCountries.bind(this.controller),
+      path: "/login/{stateKey}",
+      handler: this.controller.getLogin.bind(this.controller),
     });
 
     server.route({
-      method: "GET",
-      path: "/api/countries/{countryId}/cities",
-      handler: this.controller.getCitiesForCountry.bind(this.controller),
-    });
-
-    server.route({
-      method: "GET",
-      path: "/api/weather/{cityId}",
-      handler: this.controller.getWeatherForCity.bind(this.controller),
+      method: "POST",
+      path: "/auth/token",
+      handler: this.controller.getToken.bind(this.controller),
     });
   }
 }

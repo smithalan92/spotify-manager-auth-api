@@ -4,11 +4,6 @@ import { Env, Router } from "./types";
 class Server {
   server: Hapi.Server;
 
-  /**
-   * Server constructor
-   *
-   * @param {object} log
-   */
   constructor({ env }: { env: Env }) {
     this.server = this.createServer(env.SERVER_PORT);
   }
@@ -34,8 +29,6 @@ class Server {
       // Cant get the correct type for req.response?
       const { response }: { response: any } = request;
 
-      h.response(request.response).header("hi-roisin", "<3");
-
       if (response && response.isBoom && response.isServer) {
         const error = response.error || response.message;
 
@@ -60,11 +53,6 @@ class Server {
     routes.configure(this.server);
   }
 
-  /**
-   * Start the server
-   *
-   * @param {number} port
-   */
   async start() {
     await this.server.start();
   }
