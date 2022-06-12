@@ -22,7 +22,7 @@ class AppController {
     qs.append("redirect_uri", this.env.SPOTIFY_REDIRECT_URL);
     qs.append("state", stateKey);
 
-    h.redirect(`https://accounts.spotify.com/authorize?${qs.toString()}`);
+    return h.redirect(`https://accounts.spotify.com/authorize?${qs.toString()}`);
   }
 
   async getToken(req: Request, h: ResponseToolkit) {
